@@ -72,8 +72,10 @@ typedef struct _Enesim_Renderer_Shape_Class {
 	Enesim_Renderer_Sw_Setup sw_setup;
 	Enesim_Renderer_Sw_Cleanup sw_cleanup;
 	/* opencl based functions */
+#if BUILD_OPENCL
 	Enesim_Renderer_OpenCL_Setup opencl_setup;
 	Enesim_Renderer_OpenCL_Cleanup opencl_cleanup;
+#endif
 	/* opengl based functions */
 	Enesim_Renderer_OpenGL_Setup opengl_setup;
 	Enesim_Renderer_OpenGL_Cleanup opengl_cleanup;

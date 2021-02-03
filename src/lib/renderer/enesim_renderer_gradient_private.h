@@ -326,9 +326,11 @@ typedef struct _Enesim_Renderer_Gradient_Class
 	/* software based functions */
 	Enesim_Renderer_Sw_Setup sw_setup;
 	Enesim_Renderer_Sw_Cleanup sw_cleanup;
+#if BUILD_OPENCL
 	/* opencl based functions */
 	Enesim_Renderer_OpenCL_Kernel_Setup opencl_kernel_setup;
 	Enesim_Renderer_OpenCL_Kernel_Cleanup opencl_kernel_cleanup;
+#endif
 	/* opengl based functions */
 	Enesim_Renderer_OpenGL_Setup opengl_setup;
 	Enesim_Renderer_OpenGL_Cleanup opengl_cleanup;

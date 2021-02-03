@@ -47,7 +47,7 @@
 #include "enesim_opengl_private.h"
 #endif
 
-#if BUILD_OPENGL
+#if BUILD_OPENCL
 #include "Enesim_OpenCL.h"
 #include "enesim_opencl_private.h"
 #endif

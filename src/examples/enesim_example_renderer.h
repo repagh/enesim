@@ -18,7 +18,7 @@
 #endif
 #endif
 
-#if BUILD_OPENGL
+#if BUILD_OPENCL
 #include "Enesim_OpenCL.h"
 #endif
 

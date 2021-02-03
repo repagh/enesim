@@ -29,7 +29,9 @@
 
 #include "enesim_compositor_private.h"
 #include "enesim_renderer_sw_private.h"
+#if BUILD_OPENCL
 #include "enesim_renderer_opencl_private.h"
+#endif
 #include "enesim_renderer_opengl_private.h"
 
 Enesim_Object_Descriptor * enesim_renderer_descriptor_get(void);
@@ -93,6 +95,7 @@ typedef Eina_Bool (*Enesim_Renderer_Sw_Setup)(Enesim_Renderer *r,
 		Enesim_Renderer_Sw_Fill *fill,
 		Enesim_Log **error);
 typedef void (*Enesim_Renderer_Sw_Cleanup)(Enesim_Renderer *r, Enesim_Surface *s);
+//#if BUILD_OPENCL
 /* OpenCL backend descriptor functions */
 
 typedef Eina_Bool (*Enesim_Renderer_OpenCL_Setup)(Enesim_Renderer *r,
@@ -101,6 +104,7 @@ typedef Eina_Bool (*Enesim_Renderer_OpenCL_Setup)(Enesim_Renderer *r,
 		Enesim_Log **error);
 typedef void (*Enesim_Renderer_OpenCL_Cleanup)(Enesim_Renderer *r, Enesim_Surface *s);
 
+#if BUILD_OPENCL
 typedef Eina_Bool (*Enesim_Renderer_OpenCL_Kernel_Get)(Enesim_Renderer *r,
 		Enesim_Surface *s,
 		Enesim_Rop rop,
@@ -108,6 +112,7 @@ typedef Eina_Bool (*Enesim_Renderer_OpenCL_Kernel_Get)(Enesim_Renderer *r,
 		size_t *program_length, const char **kernel_name);
 typedef Eina_Bool (*Enesim_Renderer_OpenCL_Kernel_Setup)(Enesim_Renderer *r, Enesim_Surface *s, int argc, Enesim_Renderer_OpenCL_Kernel_Mode *mode);
 typedef void (*Enesim_Renderer_OpenCL_Kernel_Cleanup)(Enesim_Renderer *r, Enesim_Surface *s);
+#endif
 
 /* OpenGL descriptor functions */
 typedef Eina_Bool (*Enesim_Renderer_OpenGL_Initialize)(Enesim_Renderer *r,
@@ -135,14 +140,18 @@ typedef struct _Enesim_Renderer_Class
 	Enesim_Renderer_Sw_Hints_Get_Cb sw_hints_get;
 	Enesim_Renderer_Sw_Setup sw_setup;
 	Enesim_Renderer_Sw_Cleanup sw_cleanup;
+#if BUILD_OPENCL
 	/* opencl based functions */
 	Enesim_Renderer_OpenCL_Setup opencl_setup;
 	Enesim_Renderer_OpenCL_Cleanup opencl_cleanup;
 	Enesim_Renderer_Draw opencl_draw;
+#endif
+#if BUILD_OPENCL
 	Enesim_Renderer_OpenCL_Kernel_Get opencl_kernel_get;
 	Enesim_Renderer_OpenCL_Kernel_Setup opencl_kernel_setup;
 	Enesim_Renderer_OpenCL_Kernel_Cleanup opencl_kernel_cleanup;
-	/* opengl based functions */
+#endif
+  /* opengl based functions */
 	Enesim_Renderer_OpenGL_Initialize opengl_initialize;
 	Enesim_Renderer_OpenGL_Setup opengl_setup;
 	Enesim_Renderer_OpenGL_Cleanup opengl_cleanup;
